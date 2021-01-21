@@ -1,67 +1,57 @@
-let playerInput = prompt('Wybierz swój ruch! 1: kamień, 2: papier, 3: nożyce.');
-
-console.log('Gracz wpisał: ' + playerInput);
-
-let playerMove = 'nieznany ruch';
-let computerRnd;
-let computerMove;
-let score;
-
-//score 1 lose score 3 win
-
-
-if(playerInput == 1 || playerInput == 2 || playerInput == 3){
-  console.log('Input git');
-} else {
-  alert('Zly wybor!');
-}
-
-computerRnd = Math.floor(Math.random() * 3) + 1;
 
 
 
-if(playerInput == '1'){
-  playerMove = 'kamień';
-} else if (playerInput == '2') {
-  playerMove = 'papier';
-} else if (playerInput == '3') {
-  playerMove = 'nozyce';
+function getMoveName(argMoveId){
+  if(argMoveId == 1){
+    return 'kamien';
+  }
+  if(argMoveId == 2){
+    return 'papier';
+  }
+  if(argMoveId == 3){
+    return 'nozyce';
+  }
+
+  printMessage('Nie znam ruchu o id ' + argMoveId + '.');
+  return 'nieznany ruch';
 }
 
 
-if(computerRnd == '1'){
-  computerMove = 'kamień';
-} else if (computerRnd == '2') {
-  computerMove = 'papier';
-} else if (computerRnd == '3') {
-  computerMove = 'nozyce';
-}
+function displayResult(argComputerMove, argPlayerMove){
 
+  
+  if(argComputerMove == argPlayerMove){
+    return 'tie';
+  }
 
-if(playerInput == computerRnd){
-  score = 'Tie';
-} else if(playerInput == 1 && computerRnd == 3){
-  score = 3;
-} else if(playerInput == 2 && computerRnd == 1){
-  score = 3;
-} else if(playerInput == 3 && computerRnd == 2){
-  score = 3;
-} else {
-  score = 1;
+  if(argComputerMove == 'kamien' && argPlayerMove == 'nozyce'){
+    return 'lose';
+  }
+
+  if(argComputerMove == 'papier' && argPlayerMove == 'kamien'){
+    return 'lose';
+  }
+
+  if(argComputerMove == 'nozyce' && argPlayerMove == 'papier'){
+    return 'lose';
+  }
+
+  return 'Win';
+
 }
 
 
 
-if(score > 2){
-  score = "Win";
-} else if(score < 2){
-  score = "Lose";
-}
+let playerMove = prompt('Wybierz swój ruch! 1: kamień, 2: papier, 3: nożyce.');
+playerMove = getMoveName(playerMove);
+let computerRnd = Math.floor(Math.random() * 3) + 1;
+let computerMove = getMoveName(computerRnd);
+
+console.log('K.wylosowal: '+ computerMove);
+console.log('Gracz wybral: '+ playerMove);
+console.log('Status: '+ displayResult(computerMove, playerMove));
 
 
-printMessage('Twój ruch to: ' + playerMove);
-printMessage('Ruch komputera to: ' + computerMove);
-printMessage(score);
-
-console.log('K.wylosowal ' + computerRnd);
-console.log("score "+ score);
+printMessage('Ruch komputera: ' + computerMove + '.');
+printMessage('Twoj wybor: ' + playerMove + '.');
+printMessage('Wynik: ' + displayResult(computerMove, playerMove));
