@@ -13,3 +13,6 @@ function clearMessages(){
 	document.getElementById('messages').innerHTML = '';
 }
 
+function dodawanie(a,b){
+	console.log(a)
+}
